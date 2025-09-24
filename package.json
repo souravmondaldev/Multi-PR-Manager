@@ -2,7 +2,8 @@
   "name": "multi-pr-manager",
   "displayName": "Multi-PR Manager",
   "description": "Create multiple PRs from same branch with drag & drop interface",
-  "version": "1.0.1",
+  "icon": "media/logo.png",
+  "version": "1.0.2",
   "publisher": "SouravMondal",
   "engines": {
     "vscode": "^1.74.0"
@@ -31,6 +32,7 @@
         {
           "id": "multiPRView",
           "name": "Multi-PR Manager",
+          "icon": "media/logo.png",
           "when": "scmProvider == git",
           "visibility": "visible"
         }
