@@ -1,0 +1,158 @@
+{
+  "name": "multi-pr-manager",
+  "displayName": "Multi-PR Manager",
+  "description": "Create multiple PRs from same branch with drag & drop interface",
+  "version": "1.0.1",
+  "publisher": "SouravMondal",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "git",
+    "github",
+    "pull-request",
+    "pr",
+    "multi-pr"
+  ],
+  "activationEvents": [
+    "onView:multiPRView"
+  ],
+  "main": "./out/extension.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/multi-pr-manager.git"
+  },
+  "contributes": {
+    "views": {
+      "scm": [
+        {
+          "id": "multiPRView",
+          "name": "Multi-PR Manager",
+          "when": "scmProvider == git",
+          "visibility": "visible"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "multiPR.createBucket",
+        "title": "Create PR Bucket",
+        "icon": "$(add)"
+      },
+      {
+        "command": "multiPR.processAll",
+        "title": "Create All PRs",
+        "icon": "$(git-pull-request)"
+      },
+      {
+        "command": "multiPR.refresh",
+        "title": "Refresh Git Changes",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "multiPR.deleteBucket",
+        "title": "Delete Bucket",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "multiPR.openSettings",
+        "title": "Open Settings",
+        "icon": "$(gear)"
+      },
+      {
+        "command": "multiPR.setDependency",
+        "title": "Set Dependency",
+        "icon": "$(arrow-right)"
+      },
+      {
+        "command": "multiPR.previewBucket",
+        "title": "Preview Bucket Diffs",
+        "icon": "$(diff)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "multiPR.createBucket",
+          "when": "view == multiPRView",
+          "group": "navigation@1"
+        },
+        {
+          "command": "multiPR.processAll",
+          "when": "view == multiPRView",
+          "group": "navigation@2"
+        },
+        {
+          "command": "multiPR.refresh",
+          "when": "view == multiPRView",
+          "group": "navigation@3"
+        },
+        {
+          "command": "multiPR.openSettings",
+          "when": "view == multiPRView",
+          "group": "navigation@4"
+        },
+        {
+          "command": "multiPR.previewBucket",
+          "when": "view == multiPRView",
+          "group": "navigation@5"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "multiPR.deleteBucket",
+          "when": "view == multiPRView && viewItem == bucket",
+          "group": "inline"
+        },
+        {
+          "command": "multiPR.setDependency",
+          "when": "view == multiPRView && viewItem == bucket",
+          "group": "inline@2"
+        },
+        {
+          "command": "multiPR.previewBucket",
+          "when": "view == multiPRView && viewItem == bucket",
+          "group": "inline@3"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Multi-PR Manager",
+      "properties": {
+        "multiPR.defaultBaseBranch": {
+          "type": "string",
+          "default": "main",
+          "description": "Default base branch for PRs"
+        },
+        "multiPR.useGitHubCLI": {
+          "type": "boolean",
+          "default": true,
+          "description": "Use GitHub CLI for creating PRs (no token required)"
+        },
+        "multiPR.supportedRepos": {
+          "type": "array",
+          "default": ["github", "bitbucket"],
+          "description": "Supported repository types",
+          "items": {
+            "type": "string",
+            "enum": ["github", "bitbucket"]
+          }
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@types/node": "16.x",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {}
+}
